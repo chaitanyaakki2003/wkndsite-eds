@@ -1,233 +1,291 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-
-// media query match that indicates mobile/tablet width
+ 
 const isDesktop = window.matchMedia('(min-width: 900px)');
-
-function closeOnEscape(e) {
-  const modal = document.querySelector('.wknd-signin-modal');
-  if (e.code === 'Escape') {
-    if (modal && modal.classList.contains('is-open')) {
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      const trigger = document.querySelector('.wknd-topbar-signin-btn');
-      if (trigger) {
-        trigger.setAttribute('aria-expanded', 'false');
-        trigger.focus();
-      }
-      return;
-    }
-
-    const nav = document.getElementById('nav');
-    const navSections = nav.querySelector('.nav-sections');
-    if (!navSections) return;
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      toggleAllNavSections(navSections);
-      navSectionExpanded.focus();
-    } else if (!isDesktop.matches) {
-      toggleMenu(nav, navSections);
-      nav.querySelector('button').focus();
-    }
-  }
+ 
+function createLangSelector() {
+  const langWrap = document.createElement('div');
+  langWrap.className = 'header-lang';
+ 
+  const btn = document.createElement('button');
+  btn.className = 'header-lang-btn';
+  btn.type = 'button';
+  btn.setAttribute('aria-expanded', 'false');
+  btn.innerHTML = `
+  <span class="header-lang-flag">
+    <img src="/icons/us-flag.svg" alt="US">
+  </span>
+  <span>EN-US</span>
+  <span class="header-lang-chevron"></span>
+`;
+ 
+  const menu = document.createElement('div');
+  menu.className = 'header-lang-menu';
+ 
+  const options = [
+    { label: 'EN-US', flag: '/icons/us-flag.svg' },
+  ];
+ 
+  options.forEach((item) => {
+    const option = document.createElement('button');
+    option.type = 'button';
+    option.innerHTML = `
+  <img src="${item.flag}" class="header-lang-flag-img">
+  ${item.label}
+`;
+    option.addEventListener('click', () => {
+      btn.innerHTML = `
+        <span class="header-lang-flag">${item.flag}</span>
+        <span>${item.label}</span>
+        <span class="header-lang-chevron"></span>
+      `;
+      langWrap.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+    menu.appendChild(option);
+  });
+ 
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = langWrap.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+ 
+  langWrap.append(btn, menu);
+  return langWrap;
 }
-
-function closeOnFocusLost(e) {
-  const nav = e.currentTarget;
-  if (!nav.contains(e.relatedTarget)) {
-    const navSections = nav.querySelector('.nav-sections');
-    if (!navSections) return;
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      toggleAllNavSections(navSections, false);
-    } else if (!isDesktop.matches) {
-      toggleMenu(nav, navSections, false);
-    }
-  }
+ 
+function createSearch(searchLink) {
+  const wrap = document.createElement('div');
+  wrap.className = 'header-search';
+ 
+  const link = document.createElement('a');
+  link.href = searchLink ? searchLink.href : '#';
+ 
+  const icon = document.createElement('span');
+  icon.className = 'header-search-icon';
+ 
+  const text = document.createElement('span');
+  text.textContent = 'Search';
+ 
+  link.append(icon, text);
+  wrap.append(link);
+ 
+  return wrap;
 }
-
-function openOnKeydown(e) {
-  const focused = document.activeElement;
-  const isNavDrop = focused.className === 'nav-drop';
-  if (isNavDrop && (e.code === 'Enter' || e.code === 'Space')) {
-    const dropExpanded = focused.getAttribute('aria-expanded') === 'true';
-    toggleAllNavSections(focused.closest('.nav-sections'));
-    focused.setAttribute('aria-expanded', dropExpanded ? 'false' : 'true');
-  }
-}
-
-function focusNavSection() {
-  document.activeElement.addEventListener('keydown', openOnKeydown);
-}
-
-function toggleAllNavSections(sections, expanded = false) {
-  if (!sections) return;
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', expanded);
+ 
+function markActiveLink(nav) {
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+ 
+  [...nav.querySelectorAll('a')].forEach((link) => {
+    const linkPath = new URL(link.href, window.location.origin).pathname.replace(/\/$/, '') || '/';
+    link.classList.toggle('is-active', currentPath === linkPath);
   });
 }
-
-function toggleMenu(nav, navSections, forceExpanded = null) {
-  const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
-  const button = nav.querySelector('.nav-hamburger button');
-  document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
-  nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-  button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-
-  if (navSections) {
-    const navDrops = navSections.querySelectorAll('.nav-drop');
-    if (isDesktop.matches) {
-      navDrops.forEach((drop) => {
-        if (!drop.hasAttribute('tabindex')) {
-          drop.setAttribute('tabindex', 0);
-          drop.addEventListener('focus', focusNavSection);
-        }
-      });
-    } else {
-      navDrops.forEach((drop) => {
-        drop.removeAttribute('tabindex');
-        drop.removeEventListener('focus', focusNavSection);
-      });
-    }
-  }
-
-  if (!expanded || isDesktop.matches) {
-    window.addEventListener('keydown', closeOnEscape);
-    nav.addEventListener('focusout', closeOnFocusLost);
-  } else {
-    window.removeEventListener('keydown', closeOnEscape);
-    nav.removeEventListener('focusout', closeOnFocusLost);
+ 
+function closeLangOnOutsideClick(block, e) {
+  const lang = block.querySelector('.header-lang');
+  if (lang && !lang.contains(e.target)) {
+    lang.classList.remove('is-open');
+    const btn = lang.querySelector('.header-lang-btn');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
   }
 }
-
-function createSignInModal() {
-  const modal = document.createElement('div');
-  modal.className = 'wknd-signin-modal';
-  modal.setAttribute('aria-hidden', 'true');
-
-  modal.innerHTML = `
-    <div class="wknd-signin-overlay"></div>
-    <div class="wknd-signin-dialog">
-      <h2 class="wknd-signin-title">Sign In</h2>
-      <div class="wknd-signin-title-line"></div>
-      <p class="wknd-signin-subtitle">Welcome Back</p>
-
-      <form class="wknd-signin-form">
-        <input class="wknd-signin-field" type="text" placeholder="USERNAME">
-        <input class="wknd-signin-field" type="password" placeholder="PASSWORD">
-        <a class="wknd-signin-forgot" href="#">FORGOT YOUR PASSWORD?</a>
-        <br>
-        <button class="wknd-signin-submit">SIGN IN</button>
-      </form>
-
-      <div class="wknd-signin-bottom-line"></div>
-    </div>
-  `;
-
-  document.body.append(modal);
-  return modal;
-}
-
+ 
 export default async function decorate(block) {
-
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
   const fragment = await loadFragment(navPath);
-
+ 
   block.textContent = '';
-
+ 
   const nav = document.createElement('nav');
   nav.id = 'nav';
-
+ 
   while (fragment.firstElementChild) {
     nav.append(fragment.firstElementChild);
   }
-
+ 
   const classes = ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
   });
-
-  /* -------------------------------------
-     ADD SEARCH TEXT WITHOUT REMOVING ICON
-  ------------------------------------- */
-
-  const navTools = nav.querySelector('.nav-tools');
-
-  if (navTools) {
-
-    const searchLink = navTools.querySelector('a');
-
-    if (searchLink && !searchLink.querySelector('.wknd-search-text')) {
-
-      const text = document.createElement('span');
-      text.className = 'wknd-search-text';
-      text.textContent = 'SEARCH';
-
-      searchLink.append(text);
-
+ 
+  const brandSection = nav.querySelector('.nav-brand');
+  const sectionsSection = nav.querySelector('.nav-sections');
+  const toolsSection = nav.querySelector('.nav-tools');
+ 
+  const originalLogoImg = brandSection?.querySelector('img');
+  let logoImg = null;
+ 
+  if (originalLogoImg) {
+    logoImg = originalLogoImg.cloneNode(true);
+  }
+ 
+  const brandLink = document.createElement('a');
+  brandLink.href = '/';
+  brandLink.setAttribute('aria-label', 'Home');
+ 
+  if (logoImg) {
+    brandLink.appendChild(logoImg);
+  } else {
+    brandLink.textContent = 'WKND';
+  }
+ 
+  const topbar = document.createElement('div');
+  topbar.className = 'header-topbar';
+ 
+  const topbarInner = document.createElement('div');
+  topbarInner.className = 'header-topbar-inner';
+ 
+  const signIn = document.createElement('a');
+  signIn.className = 'header-signin';
+  signIn.href = '#';
+  signIn.textContent = 'Sign In';
+ 
+  /* ADD THIS BELOW */
+  const signInModal = document.createElement('div');
+  signInModal.className = 'signin-modal';
+  signInModal.innerHTML = `
+  <div class="signin-modal-overlay"></div>
+  <div class="signin-modal-dialog">
+    <button class="signin-modal-close" type="button">&times;</button>
+ 
+    <h2>Sign In</h2>
+    <div class="signin-modal-line"></div>
+    <h3>Welcome Back</h3>
+ 
+    <form class="signin-form">
+      <input type="text" placeholder="USERNAME">
+      <input type="password" placeholder="PASSWORD">
+      <a href="#" class="signin-forgot">FORGOT YOUR PASSWORD?</a>
+      <button type="submit" class="signin-submit">SIGN IN</button>
+    </form>
+  </div>
+`;
+ 
+  document.body.appendChild(signInModal);
+ 
+  signIn.addEventListener('click', (e) => {
+    e.preventDefault();
+    signInModal.classList.add('is-open');
+  });
+ 
+  signInModal.querySelector('.signin-modal-close')
+    .addEventListener('click', () => {
+      signInModal.classList.remove('is-open');
+    });
+ 
+  signInModal.querySelector('.signin-modal-overlay')
+    .addEventListener('click', () => {
+      signInModal.classList.remove('is-open');
+    });
+ 
+  const langSelector = createLangSelector();
+ 
+  topbarInner.append(signIn, langSelector);
+  topbar.append(topbarInner);
+ 
+  const main = document.createElement('div');
+  main.className = 'header-main';
+ 
+  const brand = document.createElement('div');
+  brand.className = 'header-brand';
+  brand.append(brandLink);
+ 
+  const toggle = document.createElement('button');
+  toggle.className = 'header-toggle';
+  toggle.type = 'button';
+  toggle.setAttribute('aria-label', 'Toggle navigation');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.innerHTML = '<span></span>';
+ 
+  const right = document.createElement('div');
+  right.className = 'header-right';
+ 
+  const navLinks = document.createElement('nav');
+  navLinks.className = 'header-nav';
+ 
+  if (sectionsSection) {
+    const links = [...sectionsSection.querySelectorAll(':scope a')];
+    links.forEach((link) => {
+      const a = document.createElement('a');
+      a.href = link.href;
+      a.textContent = link.textContent.trim();
+      navLinks.append(a);
+    });
+  }
+ 
+  markActiveLink(navLinks);
+ 
+  let searchLink = null;
+  if (toolsSection) {
+    searchLink = [...toolsSection.querySelectorAll('a')].find((link) => link.textContent.trim().toLowerCase().includes('search'));
+  }
+ 
+  const search = createSearch(searchLink);
+ 
+  right.append(navLinks, search);
+  main.append(brand, toggle, right);
+ 
+  block.append(topbar, main);
+ 
+  const placeholder = document.createElement('div');
+  placeholder.className = 'header-placeholder';
+  block.insertAdjacentElement('afterend', placeholder);
+ 
+  let fixedHeaderHeight = 0;
+ 
+  function syncHeaderHeight(forceFull = false) {
+    const wasCompact = block.classList.contains('is-compact');
+ 
+    if (forceFull && wasCompact) {
+      block.classList.remove('is-compact');
+    }
+ 
+    fixedHeaderHeight = block.offsetHeight;
+    placeholder.style.height = `${fixedHeaderHeight}px`;
+ 
+    if (forceFull && wasCompact) {
+      block.classList.add('is-compact');
     }
   }
-
-  const hamburger = document.createElement('div');
-  hamburger.classList.add('nav-hamburger');
-
-  hamburger.innerHTML = `
-    <button type="button" aria-controls="nav" aria-label="Open navigation">
-      <span class="nav-hamburger-icon"></span>
-    </button>
-  `;
-
-  const navSections = nav.querySelector('.nav-sections');
-
-  hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
-
-  nav.prepend(hamburger);
-
-  nav.setAttribute('aria-expanded', 'false');
-
-  toggleMenu(nav, navSections, isDesktop.matches);
-
-  isDesktop.addEventListener('change', () =>
-    toggleMenu(nav, navSections, isDesktop.matches)
-  );
-
-  const topbarSignin = document.createElement('div');
-
-  topbarSignin.className = 'wknd-topbar-signin';
-
-  topbarSignin.innerHTML = `
-    <button type="button" class="wknd-topbar-signin-btn">
-      SIGN IN
-    </button>
-  `;
-
-  nav.append(topbarSignin);
-
-  const modal = createSignInModal();
-
-  const signInBtn = topbarSignin.querySelector('.wknd-topbar-signin-btn');
-
-  signInBtn.addEventListener('click', () => {
-
-    const isOpen = modal.classList.contains('is-open');
-
-    modal.classList.toggle('is-open', !isOpen);
-
-    document.body.style.overflow = isOpen ? '' : 'hidden';
-
+ 
+  toggle.addEventListener('click', () => {
+    const isOpen = block.classList.toggle('is-menu-open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
-
-  const navWrapper = document.createElement('div');
-
-  navWrapper.className = 'nav-wrapper';
-
-  navWrapper.append(nav);
-
-  block.append(navWrapper);
-
+ 
+  document.addEventListener('click', (e) => closeLangOnOutsideClick(block, e));
+ 
+  function onScroll() {
+    const currentY = window.scrollY;
+ 
+    if (currentY > 10) {
+      block.classList.add('is-scrolled');
+    } else {
+      block.classList.remove('is-scrolled');
+    }
+ 
+    if (currentY > 20) {
+      block.classList.add('is-compact');
+    } else {
+      block.classList.remove('is-compact');
+    }
+  }
+ 
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => syncHeaderHeight(true));
+ 
+  onScroll();
+  syncHeaderHeight(true);
+ 
+  isDesktop.addEventListener('change', () => {
+    if (isDesktop.matches) {
+      block.classList.remove('is-menu-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      syncHeaderHeight(true);
+    }
+  });
 }
