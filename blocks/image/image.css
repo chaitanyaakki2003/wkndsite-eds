@@ -1,0 +1,11 @@
+.default-content-wrapper {
+    width: 90%;           /* Leave 5% space on each side */
+    max-width: 1000px;    /* Optional: cap the total width */
+    margin: 2rem auto;    /* 'auto' centers it; 2rem adds top/bottom space */
+    display: block;       /* Ensures it behaves as a block element */
+}
+ 
+.default-content-wrapper img {
+    width: 100%;          /* Fills the container */
+    height: auto;         /* Maintains original proportions */
+}

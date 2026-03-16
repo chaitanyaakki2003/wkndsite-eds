@@ -1,0 +1,111 @@
+.page-align{
+  display: flex;
+}
+ 
+.share-adventure-wrapper{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+ 
+.share-adventure {
+  max-width: 320px;
+}
+ 
+/* text at bottom */
+ 
+.share-adventure::after {
+  content: "SHARE THIS ADVENTURE";
+  display: block;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 25px;
+  font-weight: 600;
+}
+ 
+.story-card {
+  border-left: 2px solid #e0e0e0;
+  padding: 18px 20px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+ 
+.story-title {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+ 
+.story-date {
+  font-size: 12px;
+  color: #888;
+}
+ 
+.story-card:hover {
+  background: yellow;
+  border-left: 4px solid #000;
+}
+ 
+/* ================= Tablet ================= */
+ 
+@media (width <= 1024px){
+  .page-align{
+    flex-direction: column;
+    gap: 40px;
+  }
+ 
+  .share-adventure{
+    max-width: 100%;
+  }
+ 
+  .story-card{
+    padding:16px 18px;
+  }
+ 
+  .share-adventure::after{
+    margin-top:20px;
+  }
+ 
+  .share-adventure-wrapper{
+    margin-top:20px !important;
+    margin-left: 10px !important;
+  }
+ 
+}
+ 
+ 
+/* ================= Mobile ================= */
+ 
+@media (width <= 600px){
+  .page-align{
+    gap:30px;
+  }
+ 
+  .share-adventure-wrapper{
+    margin-top:20px !important;
+    margin-left: 0 !important;
+  }
+ 
+  .story-card{
+    padding:14px 16px;
+    margin-bottom:18px;
+  }
+ 
+  .story-title{
+    font-size:14px;
+  }
+ 
+  .story-date{
+    font-size:11px;
+  }
+ 
+  .share-adventure::after{
+    font-size:11px;
+    letter-spacing:1.5px;
+  }
+ 
+}
+ 

@@ -1,0 +1,169 @@
+/* 1. Remove spacing from the Section and Block containers */
+.accordion-container,
+.accordion-wrapper {
+  max-width: 950px;         /* Tight width to match target image */
+  margin: 80px;
+  padding-top: 0 !important;
+  box-sizing: border-box;
+}
+ 
+.accordion {
+  margin-top: 0;
+  padding-top: 0;
+}
+ 
+/* 2. Individual Rows */
+.accordion > div {
+  display: flex;
+  flex-direction: column;
+}
+ 
+/* 3. The Question Button */
+.accordion-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ 
+  /* Vertical spacing */
+  padding: 16px 0;
+  margin: 0;
+ 
+  /* Visuals */
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e0e0e0; /* Thin gray line */
+ 
+  /* Typography */
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+ 
+/* This is the key: Removes top padding from the very first question */
+.accordion > div:first-child .accordion-title {
+  padding-top: 0;
+}
+ 
+/* 4. The Plus/Minus Icon */
+.accordion-title::after {
+  content: "+";
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+  color: #000;
+  margin-left: 15px;
+}
+ 
+.accordion-title.active::after {
+  content: "\2212"; /* Proper Unicode Minus sign */
+}
+ 
+/* 5. The Answer Content Area */
+.accordion-content {
+  display: none;
+  padding: 12px 0 24px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+ 
+/* Adjustments for the previous paragraph to close the gap further */
+.section > div > p:last-of-type {
+  margin-bottom: 10px; /* Reduces the gap from the text above */
+}
+
+/* laptop */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .accordion-container,
+  .accordion-wrapper {
+    max-width: 820px;
+    margin: 60px;
+  }
+
+  .accordion-title {
+    font-size: 13px;
+    padding: 15px 0;
+  }
+
+  .accordion-title::after {
+    font-size: 20px;
+  }
+
+  .accordion-content {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 12px 0 22px 0;
+  }
+}
+
+/* tablet */
+@media (min-width: 601px) and (max-width: 900px) {
+  .accordion-container,
+  .accordion-wrapper {
+    max-width: 100%;
+    margin: 40px 24px;
+    padding-top: 0 !important;
+  }
+
+  .accordion-title {
+    font-size: 13px;
+    padding: 14px 0;
+    line-height: 1.5;
+  }
+
+  .accordion-title::after {
+    font-size: 20px;
+    margin-left: 12px;
+  }
+
+  .accordion-content {
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 10px 0 20px 0;
+  }
+
+  .section > div > p:last-of-type {
+    margin-bottom: 8px;
+  }
+}
+ 
+/* mobile */
+@media (max-width: 600px) {
+  .accordion-container,
+  .accordion-wrapper {
+    max-width: 100%;
+    margin: 24px 16px;
+    padding-top: 0 !important;
+  }
+
+  .accordion-title {
+    font-size: 12px;
+    padding: 12px 0;
+    line-height: 1.5;
+  }
+
+  .accordion > div:first-child .accordion-title {
+    padding-top: 0;
+  }
+
+  .accordion-title::after {
+    font-size: 18px;
+    margin-left: 10px;
+  }
+
+  .accordion-content {
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 10px 0 18px 0;
+  }
+
+  .section > div > p:last-of-type {
+    margin-bottom: 6px;
+  }
+}

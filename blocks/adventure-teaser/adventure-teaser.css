@@ -1,0 +1,126 @@
+/* 1. Reset Body to allow full-width image */
+body {
+  margin: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+ 
+.next-adventures-title,
+.adventure-teaser-container h3:first-of-type {
+  font-family: serif;
+  font-size: 1.8rem;
+  margin: 40px 0 10px 20px;
+  position: relative;
+  display: inline-block;
+}
+ 
+ 
+/* 3. Image Styling (Top half cut, bottom focused) */
+.adventure-teaser-image img {
+  width: 100vw;
+  height: 450px;
+  object-fit: cover;
+  object-position: bottom;
+  display: block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+ 
+/* 4. White Content Box (Removing the top gap) */
+.adventure-teaser-content {
+  position: relative;
+  width: 90%;
+  max-width: 1100px;
+  height: 200px;
+  margin: -160px auto 0;
+  background: #fff;
+  padding: 0px 40px 40px;
+  box-sizing: border-box;
+  z-index: 10;
+}
+ 
+/* 5. PERFECT LEFT ALIGNMENT & NO TOP GAP */
+.adventure-teaser-content h2 {
+  font-family: serif;
+  font-size: 2.0rem;
+  font-weight: 500;
+  margin: 0 0 15px 0;
+  padding-top: 0px;
+  border-bottom: none;
+}
+ 
+/* Explicitly ensure no yellow line under this header */
+.adventure-teaser-content h2::after {
+  display: none !important;
+  content: none !important;
+}
+ 
+.adventure-teaser-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  color: #222;
+  text-align: justify;
+}
+ 
+/* 6. Button (Yellow Block) */
+.adventure-teaser-content a {
+  display: inline-block;
+  background: #ffea00;
+  color: #000;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 15px 35px;
+  font-size: 0.85rem;
+  margin-left: 0;
+}
+ 
+/* 7. TABLET & MOBILE RESPONSIVE */
+@media (max-width: 1024px) {
+  .adventure-teaser-image img {
+    height: 300px; /* Adjust height for tablet */
+  }
+ 
+  .adventure-teaser-content {
+    width: 90%;
+    margin-top: -80px; /* Reduced overlap */
+    height: auto;      /* Prevents content clipping */
+    padding: 30px;
+  }
+ 
+  /* Force the button to only take up the space of its text */
+  .adventure-teaser-content a {
+    display: inline-block !important;
+    width: auto !important;          
+    padding: 12px 30px;              
+    font-size: 0.8rem;
+  }
+}
+ 
+@media (max-width: 768px) {
+  .adventure-teaser-image img {
+    height: 220px; /* Smaller image for mobile phones */
+  }
+ 
+  .adventure-teaser-content {
+    margin-top: -40px; /* Even smaller overlap for small screens */
+    padding: 20px;
+  }
+ 
+  .adventure-teaser-content h2 {
+    font-size: 1.5rem;
+  }
+ 
+  .adventure-teaser-content p {
+    font-size: 0.95rem;
+  }
+ 
+  /* Ensuring the button stays small on small phones */
+  .adventure-teaser-content a {
+    width: auto !important;
+    display: inline-block !important;
+    padding: 10px 25px;
+  }
+}

@@ -1,0 +1,63 @@
+.button-container {
+  display: flex;
+  justify-content: flex-start; /* Aligns to the left */
+  width: 100%;
+  margin-top: 2rem;
+  margin-right: 1100px;
+  padding-left: 0; /* Ensures no extra padding pushes it right */
+  box-sizing: border-box;
+}
+
+.button-container a {
+  background-color: var(--brandPrimary, #ffea00);
+  border-radius: 0; /* Removed border radius */
+  color: var(--textColor, #202020);
+  display: inline-block;
+  font-size: var(--fontSizeSmall, 14px);
+  font-weight: var(--fontWeightBold, 600);
+  padding: 1em 2.5em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* laptop */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .button-container {
+    margin-right: 0;
+    margin-top: 1.75rem;
+  }
+
+  .button-container a {
+    font-size: 14px;
+    padding: 0.95em 2.2em;
+  }
+}
+
+/* tablet */
+@media (min-width: 601px) and (max-width: 900px) {
+  .button-container {
+    margin-right: 0;
+    margin-top: 1.5rem;
+    width: 100%;
+  }
+
+  .button-container a {
+    font-size: 13px;
+    padding: 0.9em 2em;
+  }
+}
+
+/* mobile */
+@media (max-width: 600px) {
+  .button-container {
+    margin-right: 0;
+    margin-top: 1.25rem;
+    width: 100%;
+  }
+
+  .button-container a {
+    font-size: 12px;
+    padding: 0.85em 1.6em;
+  }
+}

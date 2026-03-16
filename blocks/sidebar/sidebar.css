@@ -1,0 +1,93 @@
+/* Sidebar - Absolute for Laptop (1440px/1024px) */
+.page-align{
+  display: flex;
+}
+ 
+.sidebar-wrapper {
+  position: absolute;
+  right: 40px;
+  top: 920px;  
+  width: 300px;
+  z-index: 2;
+}
+ 
+.sidebar .sidebar-heading {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin: 0 0 38px 0;  
+}
+ 
+.sidebar .sidebar-item {
+  border-left: 5px solid #ebebeb;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  transition: background 0.3s ease;
+}
+ 
+.sidebar .sidebar-item:hover {
+  background-color: #ffea00 !important;
+  border-left: 5px solid #202020 !important;
+  cursor: pointer;
+}
+ 
+.sidebar .sidebar-item p:first-child {
+  font-size: 15px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+ 
+.sidebar .sidebar-item p:last-child {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #7a7a7a;
+}
+ 
+/* --- LAPTOP FIX (1024px to 1440px) --- */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .sidebar-wrapper {
+    position: relative;
+    top: 50px;
+    right: auto;
+    width: 30%;
+    margin-left: 40px;
+  }
+
+  .sidebar .sidebar-item:hover {
+    background-color: #ffea00 !important;
+    border-left: 5px solid #202020 !important;
+    cursor: pointer;
+  }
+}
+ 
+/* --- NEW RESPONSIVE STACKING & HOVER --- */
+
+@media (max-width: 768px) {
+  .page-align{
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .sidebar-wrapper {
+    order: 2;
+    position: static;
+    width: 80%;
+    margin: 40px auto;
+  }
+ 
+  .sidebar .sidebar-item:hover {
+    background-color: #ffea00 !important;
+    border-left: 5px solid #202020 !important;
+    cursor: pointer;
+  }
+}
+ 
+@media (max-width: 425px) {
+  .sidebar-wrapper {
+    width: 95%;
+  }
+ 
+  .sidebar .sidebar-heading {
+    text-align: center;
+  }
+}

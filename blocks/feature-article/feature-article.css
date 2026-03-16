@@ -1,0 +1,143 @@
+.feature-article-container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;   /* removed vertical padding to reduce block gap */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.feature-article {
+  width: 65%;
+  margin-right: 250px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Heading styling */
+.feature-article h2 {
+  font-family: "Times New Roman", serif;
+  font-size: 44px;
+  font-weight: 400;
+  color: #202020;
+  margin: 0 0 8px 0;   /* reduced gap */
+  position: relative;
+}
+
+/* Yellow underline */
+.feature-article h2::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 4px;
+  background: #ffd400;
+  margin-top: 8px;   /* reduced */
+}
+
+/* Image size similar to WKND */
+.feature-article picture {
+  display: block;
+  max-width: 820px;
+  margin-top: 16px;   /* reduced from 28px */
+}
+
+.feature-article img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Paragraph styling */
+.feature-article p {
+  max-width: 820px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #202020;
+  margin-top: 16px;   /* reduced from 28px */
+  text-align: justify;
+}
+
+/* laptop */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .feature-article {
+    width: 72%;
+    margin-right: 100px;
+  }
+
+  .feature-article h2 {
+    font-size: 40px;
+  }
+
+  .feature-article h2::after {
+    width: 84px;
+  }
+
+  .feature-article picture,
+  .feature-article p {
+    max-width: 100%;
+  }
+
+  .feature-article p {
+    font-size: 17px;
+    line-height: 1.75;
+  }
+}
+
+/* tablet */
+@media (min-width: 601px) and (max-width: 900px) {
+  .feature-article {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .feature-article h2 {
+    font-size: 36px;
+  }
+
+  .feature-article h2::after {
+    width: 78px;
+    margin-top: 7px;
+  }
+
+  .feature-article picture,
+  .feature-article p {
+    max-width: 100%;
+  }
+
+  .feature-article p {
+    font-size: 16px;
+    line-height: 1.75;
+    text-align: justify;
+  }
+}
+
+/* mobile */
+@media (max-width: 600px) {
+  .feature-article {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .feature-article h2 {
+    font-size: 30px;
+    margin: 0 0 6px 0;
+  }
+
+  .feature-article h2::after {
+    width: 68px;
+    height: 4px;
+    margin-top: 6px;
+  }
+
+  .feature-article picture,
+  .feature-article p {
+    max-width: 100%;
+  }
+
+  .feature-article p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-top: 12px;
+    text-align: left;
+  }
+}

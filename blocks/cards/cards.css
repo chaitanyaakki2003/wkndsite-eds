@@ -1,27 +1,199 @@
+/* --- Section Heading with Yellow Line --- */
+.section > h1,
+.section > h2 {
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+  font-family: 'Source Serif Pro', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #000;
+}
+ 
+.section > h1::after,
+.section > h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #FFEA00;
+}
+ 
+/* --- Card Grid Layout (Default) --- */
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
-
+ 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  border: none;
+  background-color: transparent;
+  display: block;
 }
-
-.cards .cards-card-body {
-  margin: 16px;
-}
-
-.cards .cards-card-image {
-  line-height: 0;
-}
-
-.cards > ul > li img {
+ 
+/* Visibility Logic */
+.cards li.hidden-card { display: none; }
+.cards.show-all li.hidden-card { display: block; }
+ 
+/* --- Default Card Content --- */
+.cards .cards-card-image img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+ 
+.cards .cards-card-body { margin-top: 16px; }
+ 
+.cards .cards-card-body h3 {
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  color: #000;
+}
+ 
+.cards .cards-card-body p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
+/* --- Magazine Variant --- */
+.cards.magazine > ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+ 
+.cards.magazine .magazine-badge {
+  width: 50px;
+  height: 40px;
+  background-color: #FFEA00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
+}
+ 
+.cards.magazine .magazine-badge span { font-size: 18px; }
+ 
+.cards.magazine .cards-card-body h3 {
+  color: #707070 !important;
+  font-size: 16px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+ 
+.cards.magazine .cards-card-body p {
+  color: #B0B0B0 !important;
+  font-size: 12px;
+  margin-bottom: 10px;
+  display: block;
+}
+ 
+.cards.magazine .cards-card-body p:last-child {
+  display: inline-block;
+  background: #EFEFEF;
+  padding: 8px 12px;
+  color: #8E8E8E;
+  font-weight: bold;
+  font-size: 11px;
+}
+ 
+.cards.magazine .cards-card-image { margin-top: 15px; }
+ 
+.cards.magazine .cards-card-image img {
+  width: 100%;
+  opacity: 0.5;
+  filter: grayscale(100%);
+  transition: 0.3s ease;
+}
+ 
+/* --- About Us Variation --- */
+.cards.aboutus > ul { text-align: center; gap: 32px; }
+ 
+.cards.aboutus .cards-card-image img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin: 0 auto;
+}
+ 
+.cards.aboutus .cards-card-body h3 {
+  text-transform: none;
+  font-family: 'Source Serif Pro', serif;
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+ 
+.cards.aboutus .cards-card-body p {
+  color: #000;
+  font-weight: 700;
+  margin-bottom: 0;
+  display: block;
+}
+ 
+.cards.aboutus .aboutus-social-bar {
+  display: inline-flex;
+  background-color: #1a1a1a;
+  padding: 10px 25px;
+  margin-top: 15px;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+ 
+.cards.aboutus .aboutus-social-bar a { display: flex; text-decoration: none; }
+ 
+.cards.aboutus .aboutus-social-bar span.icon {
+  filter: invert(1);
+  width: 18px;
+  height: 18px;
+}
+ 
+/* ========================================================================== */
+/* RESPONSIVE CARD GRID */
+/* ========================================================================== */
+ 
+/* Mobile */
+@media (max-width: 767px) {
+  .cards > ul,
+  .cards.magazine > ul,
+  .cards.aboutus > ul {
+    grid-template-columns: 1fr;
+  }
+}
+ 
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cards > ul,
+  .cards.magazine > ul,
+  .cards.aboutus > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+ 
+/* Laptop */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .cards > ul,
+  .cards.magazine > ul,
+  .cards.aboutus > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+ 

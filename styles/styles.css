@@ -39,7 +39,12 @@
   /* nav height */
   --nav-height: 64px;
 }
-
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
 /* fallback fonts */
 @font-face {
   font-family: roboto-condensed-fallback;
@@ -323,3 +328,87 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+/* Container for the content */
+.default-content-wrapper {
+    font-family: 'Adobe Clean', serif; /* Or a similar high-quality serif font like 'Georgia' */
+}
+ 
+/* Styling the Heading */
+#members-only {
+    font-size: 40px;
+    font-family: var(--fontFamilySerif);
+    font-weight: var(--fontWeightNormal, normal);
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block; /* Keeps the yellow line constrained to the text width */
+}
+ 
+/* Creating the Yellow Line */
+#members-only::after {
+    content: "";
+    display: block;
+    width: 60px;      /* Adjust width of the line */
+    height: 4px;      /* Thickness of the line */
+    background-color: #FFD700; /* Vibrant yellow */
+    margin-top: 10px;
+}
+ 
+/* Styling the Paragraph */
+.default-content-wrapper p {
+    font-size: 18px;
+    margin-top: 25px;
+    color: #333;
+}
+ 
+.default-content-wrapper strong {
+    font-weight: 700;
+}
+main h1 {
+  font-size: 64px;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  font-weight: 400;
+}
+
+main h1::after {
+  content: "";
+  display: block;
+  width: 106px;
+  height: 4px;
+  background: #ffe100;
+  margin-top: 18px;
+}
+
+/* Main Page Heading - The largest element */
+h1 {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 3.5rem;    /* Large and impactful */
+    font-weight: 500;    /* Extra bold */
+    color: #000;
+    margin: 40px 0 20px 0;
+    position: relative;
+    display: inline-block;
+}
+ 
+/* Yellow line for h1 - slightly thicker and lower */
+h1::after {
+    content: "";
+    display: block;
+    width: 70px;         /* Longer line for bigger text */
+    height: 6px;         /* Thicker line */
+    background-color: #ffea00;
+    margin-top: 12px;
+}
+/* Sub-headings - Noticeably smaller than h1 */
+h2 {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 2.2rem;    /* Smaller than h1 (3.5rem) */
+    font-weight: 400;    /* Semi-bold */
+    color: #333;         /* Slightly softer black */
+    margin: 30px 0 15px 0;
+    position: relative;
+    display: inline-block;
+}
+ 
+ 
+ 

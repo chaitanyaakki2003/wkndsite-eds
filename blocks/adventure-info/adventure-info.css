@@ -1,0 +1,120 @@
+/* TAB BAR */
+ 
+.adventure-tabs {
+  display:flex;
+  gap:25px;
+  margin-bottom:30px;
+}
+ 
+/* TAB BUTTON */
+ 
+.adventure-tabs button{
+  background:transparent;
+  border:none;
+  padding:12px 20px;
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+ 
+/* HOVER */
+ 
+.adventure-tabs button:hover{
+  background:#222;
+  color:white;
+}
+ 
+/* ACTIVE */
+ 
+.adventure-tabs button.active{
+  background:#222;
+  color:white;
+}
+ 
+/* CONTENT */
+ 
+.adventure-info.block {
+  max-width: 800px;
+  margin: auto;
+}
+ 
+/* HIDE */
+ 
+.tab-hidden{
+  display:none;
+}
+ 
+/* IMAGE */
+ 
+.adventure-info img{
+ width: 100%;
+  margin-bottom: 20px;
+}
+ 
+/* TEXT */
+ 
+.adventure-info p{
+  font-size: 16px;
+  line-height: 1.7;
+}
+ 
+/* KEEP FLEX STABLE */
+ 
+.page-align{
+  align-items:flex-start;
+}
+ 
+/* ================= Tablet ================= */
+ 
+@media (width <= 1024px){
+  .adventure-tabs{
+    flex-wrap:wrap;
+    gap:15px;
+  }
+ 
+  .adventure-tabs button{
+    padding:10px 16px;
+    font-size:12px;
+  }
+ 
+  .adventure-info.block{
+    max-width:700px;
+    padding:0 20px;
+  }
+ 
+  .adventure-info p{
+    font-size:15px;
+  }
+ 
+}
+ 
+/* ================= Mobile ================= */
+ 
+@media (width <= 600px){
+  .adventure-tabs{
+    flex-wrap:wrap;
+    gap:10px;
+  }
+ 
+  .adventure-tabs button{
+    padding:8px 14px;
+    font-size:11px;
+  }
+ 
+  .adventure-info.block{
+    max-width:100%;
+    padding:0 16px;
+    margin-left: 0 ;
+  }
+ 
+  .adventure-info img{
+    margin-bottom:15px;
+  }
+ 
+  .adventure-info p{
+    font-size:14px;
+    line-height:1.6;
+  }
+ 
+}

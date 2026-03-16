@@ -1,33 +1,577 @@
+/* Featured Article Layout */
+ 
+.columns-wrapper {
+  max-width: 1100px; /* Reduces overall width of the block */
+  margin: 0 auto;    /* Centers the block on the page */
+  padding: 0 20px;   /* Optional: adds a little breathing room on the sides */
+}
+ 
 .columns > div {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 60% 40%; /* Changed from 60/40 to 70/30 */
+  align-items: stretch;
+  gap: 0;
+  min-height: 500px; /* Reduces the height (adjust this value as needed) */
 }
-
-.columns img {
+ 
+/* LEFT IMAGE */
+ 
+.columns > div > div:first-child img {
   width: 100%;
-}
-
-.columns > div > div {
-  order: 1;
-}
-
-.columns > div > .columns-img-col {
-  order: 0;
-}
-
-.columns > div > .columns-img-col img {
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
-
-@media (width >= 900px) {
-  .columns > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+ 
+/* RIGHT CONTENT BOX */
+ 
+.columns > div > div:last-child {
+  background: #f2f2f2;
+  padding: 40px; /* Reduced padding from 60px to fit the narrower 30% width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+ 
+/* FEATURED LABEL */
+ 
+.columns > div > div:last-child p:first-child {
+  font-size: 17px; /* Slightly smaller to match reduced scale */
+  font-weight: 450;
+  margin-bottom: 15px;
+}
+ 
+/* TITLE */
+ 
+.columns > div > div:last-child h2 {
+  font-size: 40px; /* Reduced size to prevent text overflow in 30% column */
+  font-weight: 300;
+  margin-bottom: 15px;
+  line-height: 1.2;
+  font-family: var(--fontFamilySerif);
+}
+ 
+/* DESCRIPTION */
+ 
+.columns > div > div:last-child p {
+  font-size: 15px; /* Slightly smaller for the tighter box */
+  line-height: 1.6;
+  text-align: justify;
+}
+ 
+/* BUTTON STYLE */
+ 
+.columns > div > div:last-child a {
+  display: inline-block;
+  align-self: flex-start; /* Ensures button doesn't stretch to full width */
+  margin-top: 20px;
+  background-color: var(--brandPrimary, #ffea00);
+  border-radius: 0;
+  color: var(--textColor, #202020);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0.8em 2em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+/* ============================= */
+/* FAQ PAGE STYLING */
+/* ============================= */
+ 
+.columns.faq {
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 78px 70px;
+  box-sizing: border-box;
+}
+ 
+.columns.faq > div {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 0.72fr);
+  gap: 70px;
+  align-items: start;
+}
+ 
+/* LEFT SIDE */
+.columns.faq > div > div:first-child {
+  max-width: 980px;
+}
+ 
+.columns.faq > div > div:first-child picture,
+.columns.faq > div > div:first-child img {
+  display: block;
+  width: 100%;
+  max-width: 980px;
+  height: auto;
+  margin-bottom: 28px;
+}
+ 
+.columns.faq > div > div:first-child p {
+  font-size: 18px;
+  line-height: 2.1;
+  color: #202020;
+  margin: 0 0 18px;
+  text-align: justify;
+}
+ 
+/* RIGHT SIDE */
+.columns.faq > div > div:last-child {
+  padding-top: 6px;
+  background: transparent !important;
+}
+ 
+.columns.faq > div > div:last-child h2 {
+  margin: 0 0 26px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 400;
+  color: #202020;
+}
+ 
+.columns.faq > div > div:last-child p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 2.1;
+  color: #202020;
+  margin: 0 0 14px;
+  text-align: left !important;
+  white-space: nowrap;
+}
+.columns.faq > div > div:last-child a {
+  white-space: nowrap;
+}
+ 
+/* remove yellow background / button styling from links */
+.columns.faq > div > div:last-child a,
+.columns.faq > div > div:last-child a:link,
+.columns.faq > div > div:last-child a:visited,
+.columns.faq > div > div:last-child .button-container a,
+.columns.faq > div > div:last-child p a {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #1a56ff !important;
+  text-decoration: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: inline !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2.1;
+}
+ 
+.columns.faq > div > div:last-child a:hover {
+  text-decoration: underline !important;
+}
+ 
+/* remove button container look if Franklin wrapped links */
+.columns.faq > div > div:last-child .button-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+ 
+.columns.faq > div > div:last-child .button-container .button {
+  background: transparent !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+ 
+/* MOBILE */
+@media (max-width: 900px) {
+  .columns.faq {
+    padding: 0 20px 40px;
   }
-
-  .columns > div > div {
-    flex: 1;
-    order: unset;
+ 
+  .columns.faq > div {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+ 
+  .columns.faq > div > div:first-child,
+  .columns.faq > div > div:first-child picture,
+  .columns.faq > div > div:first-child img {
+    max-width: 100%;
+  }
+ 
+  .columns.faq > div > div:last-child {
+    padding-top: 0;
+  }
+ 
+  .columns.faq > div > div:first-child p {
+    font-size: 16px;
+    line-height: 1.9;
+  }
+ 
+  .columns.faq > div > div:last-child h2 {
+    font-size: 28px;
+  }
+ 
+  .columns.faq > div > div:last-child p,
+  .columns.faq > div > div:last-child a,
+  .columns.faq > div > div:last-child a:link,
+  .columns.faq > div > div:last-child a:visited {
+    font-size: 14px;
+    line-height: 2;
+  }
+}
+/* ============================================================ */
+/* AUTHOR VARIATION: Final Precise Text & Social Alignment      */
+/* ============================================================ */
+ 
+.columns.author {
+  max-width: 750px; /* Matches the paragraph width from your screenshots */
+  margin: 40px;
+  padding: 20px 0 !important;
+  border-top: 1px solid #f2f2f2;
+}
+ 
+.columns.author > div {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important; /* Pushes social box to far right */
+  min-height: auto !important;
+  gap: 20px;
+}
+ 
+/* 1. LEFT COLUMN: Image */
+.columns.author > div > div:nth-child(1) {
+  flex: 0 0 auto;
+}
+ 
+.columns.author > div > div:nth-child(1) img {
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50% !important;
+  object-fit: cover;
+  display: block;
+}
+ 
+/* 2. MIDDLE COLUMN: Name and Role (Stacked) */
+.columns.author > div > div:nth-child(2) {
+  flex: 1 1 auto; /* Allows this to take up available space */
+  display: flex !important;
+  flex-direction: column !important; /* Forces Role below Name */
+  justify-content: center;
+  align-items: flex-start;
+}
+ 
+.columns.author > div > div:nth-child(2) h2 {
+  font-family: var(--fontFamilySerif, "Georgia", serif);
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0 0 4px 0 !important; /* Small gap between name and role */
+  line-height: 1.2;
+}
+ 
+.columns.author > div > div:nth-child(2) p {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 !important;
+  letter-spacing: 0.5px;
+}
+ 
+/* 3. RIGHT COLUMN: Social Box */
+.columns.author > div > div:nth-child(3) {
+  flex: 0 0 auto;
+  display: flex !important;
+  flex-direction: row !important;
+  background-color: #1a1a1a !important;
+  padding: 12px 25px !important;
+  gap: 15px !important;
+  align-items: center !important;
+  margin-left: auto; /* Safety push to the right */
+}
+ 
+/* Icon White Filter Fix */
+.columns.author > div > div:nth-child(3) a,
+.columns.author > div > div:nth-child(3) img {
+  filter: invert(1) brightness(2) !important;
+  width: 18px !important;
+  height: 18px !important;
+  display: flex;
+}
+ 
+.columns.author > div > div:nth-child(3) p {
+  display: flex !important;
+  gap: 15px;
+  margin: 0 !important;
+}
+ 
+/* MOBILE */
+@media (max-width: 768px) {
+  .columns.author > div {
+    flex-direction: column !important;
+    text-align: center;
+    gap: 15px;
+  }
+  .columns.author > div > div:nth-child(2) {
+    align-items: center; /* Centers text on mobile */
+  }
+}/* ============================================================ */
+/* 1. FEATURED ARTICLE LAYOUT (RESPONSIVE)                      */
+/* ============================================================ */
+ 
+.columns-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+ 
+.columns > div {
+  display: grid;
+  grid-template-columns: 60% 40%; /* Desktop Default */
+  align-items: stretch;
+  gap: 0;
+  min-height: 500px;
+}
+ 
+/* LEFT IMAGE */
+.columns > div > div:first-child img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+ 
+/* RIGHT CONTENT BOX */
+.columns > div > div:last-child {
+  background: #f2f2f2;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+ 
+.columns > div > div:last-child p:first-child {
+  font-size: 17px;
+  font-weight: 450;
+  margin-bottom: 15px;
+}
+ 
+.columns > div > div:last-child h2 {
+  font-size: 40px;
+  font-weight: 300;
+  margin-bottom: 15px;
+  line-height: 1.2;
+  font-family: var(--fontFamilySerif);
+}
+ 
+.columns > div > div:last-child p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+ 
+.columns > div > div:last-child a {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 20px;
+  background-color: var(--brandPrimary, #ffea00);
+  border-radius: 0;
+  color: var(--textColor, #202020);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0.8em 2em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+ 
+/* RESPONSIVE FOR FEATURED ARTICLE */
+@media (max-width: 1024px) {
+  .columns > div {
+    grid-template-columns: 50% 50%; /* Tablet Split */
+    min-height: 400px;
+  }
+  .columns > div > div:last-child h2 {
+    font-size: 32px;
+  }
+}
+ 
+@media (max-width: 768px) {
+  .columns > div {
+    grid-template-columns: 1fr; /* Stacked for Mobile */
+    min-height: auto;
+  }
+  .columns > div > div:first-child img {
+    height: 300px; /* Controlled height on mobile */
+  }
+  .columns > div > div:last-child {
+    padding: 30px 20px;
+  }
+}
+ 
+/* ============================================================ */
+/* 2. FAQ PAGE STYLING (RESPONSIVE)                             */
+/* ============================================================ */
+ 
+.columns.faq {
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 78px 70px;
+  box-sizing: border-box;
+}
+ 
+.columns.faq > div {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 0.72fr);
+  gap: 70px;
+  align-items: start;
+}
+ 
+.columns.faq > div > div:first-child {
+  max-width: 980px;
+}
+ 
+.columns.faq > div > div:first-child img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 28px;
+}
+ 
+.columns.faq > div > div:first-child p {
+  font-size: 18px;
+  line-height: 2.1;
+  color: #202020;
+  margin: 0 0 18px;
+  text-align: justify;
+}
+ 
+.columns.faq > div > div:last-child {
+  padding-top: 6px;
+  background: transparent !important;
+}
+ 
+.columns.faq > div > div:last-child h2 {
+  margin: 0 0 26px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 400;
+  color: #202020;
+}
+ 
+.columns.faq > div > div:last-child p {
+  font-size: 14px;
+  line-height: 2.1;
+}
+ 
+/* Link overrides */
+.columns.faq > div > div:last-child a {
+  background: transparent !important;
+  color: #1a56ff !important;
+  text-decoration: none !important;
+  display: inline !important;
+}
+ 
+/* RESPONSIVE FOR FAQ */
+@media (max-width: 1100px) {
+  .columns.faq {
+    padding: 0 40px 50px;
+  }
+  .columns.faq > div {
+    gap: 40px;
+  }
+}
+ 
+@media (max-width: 900px) {
+  .columns.faq {
+    padding: 0 20px 40px;
+  }
+  .columns.faq > div {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .columns.faq > div > div:first-child p {
+    font-size: 16px;
+    line-height: 1.9;
+    text-align: left;
+  }
+  .columns.faq > div > div:last-child p {
+    white-space: normal; /* Allow text wrap on mobile */
+  }
+}
+ 
+/* ============================================================ */
+/* 3. AUTHOR VARIATION (RESPONSIVE)                             */
+/* ============================================================ */
+ 
+.columns.author {
+  max-width: 750px;
+  margin-left: 40px;
+  padding: 20px 0 !important;
+  border-top: 1px solid #f2f2f2;
+}
+ 
+.columns.author > div {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: auto !important;
+  gap: 20px;
+}
+ 
+.columns.author > div > div:nth-child(1) img {
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50% !important;
+  object-fit: cover;
+}
+ 
+.columns.author > div > div:nth-child(2) {
+  flex: 1 1 auto;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start;
+}
+ 
+.columns.author > div > div:nth-child(2) h2 {
+  font-size: 24px;
+  margin: 0 0 4px 0 !important;
+}
+ 
+.columns.author > div > div:nth-child(2) p {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #888;
+}
+ 
+.columns.author > div > div:nth-child(3) {
+  background-color: #1a1a1a !important;
+  padding: 12px 25px !important;
+  display: flex !important;
+  gap: 15px !important;
+  margin-left: auto;
+}
+ 
+.columns.author > div > div:nth-child(3) img {
+  filter: invert(1) brightness(2) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+ 
+/* RESPONSIVE FOR AUTHOR */
+@media (max-width: 768px) {
+  .columns.author {
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
+  .columns.author > div {
+    flex-direction: column !important;
+    text-align: center;
+    gap: 15px;
+  }
+  .columns.author > div > div:nth-child(2) {
+    align-items: center;
+  }
+  .columns.author > div > div:nth-child(3) {
+    margin-left: 0; /* Un-stick from right */
   }
 }
